@@ -1,5 +1,5 @@
 # 1. Use a lightweight Python image from Docker Hub as the base
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 
 WORKDIR /usr/src/app
