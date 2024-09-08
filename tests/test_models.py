@@ -2,7 +2,7 @@ import pytest
 import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from db.models import Base, Patient
+from db.models import Base, Patient, Identifier
 @pytest.fixture
 def create_in_memory_db():
     engine = create_engine('sqlite:///:memory:')
@@ -30,3 +30,33 @@ def test_patient_created(create_in_memory_db):
     assert patient.family_name == 'Doe'
     assert patient.us_birth_gender == 'M'
     assert str(patient.birth_date) == '1980-01-01'
+
+def test_identifier_created(create_in_memory_db):
+    session = create_in_memory_db
+    ssn_identifier = Identifier(name='SSN')
+
+    # Step 2: Add and commit the identifier to the session
+    session.add(ssn_identifier)
+    session.commit()
+
+    identifier = session.query(Identifier).filter_by(name='SSN').first()
+
+    assert identifier is not None
+    assert identifier.name == 'SSN'
+
+def test_duplicate_handled(create_in_memory_db):
+    session = create_in_memory_db
+    ssn_identifier = Identifier(name='SSN')
+
+    # Step 2: Add and commit the identifier to the session
+    session.add(ssn_identifier)
+    session.commit()
+
+    ssn_identifier_duplicate = Identifier(name='SSN')
+    session.add(ssn_identifier_duplicate)
+    session.commit()
+
+
+
+
+

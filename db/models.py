@@ -13,3 +13,13 @@ class Patient(Base):
     given_name = Column(String)
     prefix = Column(String)
     contact = Column(String)
+
+class Identifier(Base):
+    __tablename__ = 'identifier'
+    id = Column(int, primary_key=True)
+    name = Column(String)
+
+
+class PatientIdentifier(Base):
+    __tablename__ = 'patientidentifier'
+    id = Column(int)

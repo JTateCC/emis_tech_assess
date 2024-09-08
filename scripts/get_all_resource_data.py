@@ -50,10 +50,10 @@ directory_path = 'C:\Programming\Projects\exa-data-eng-assessment\data'
 full_resources = process_files(directory_path)
 
 
-# for resource_type, resource_keys_list in full_resources.items():
-#     print(f"Resource Type: {resource_type}")
-#     for resource_keys in resource_keys_list:
-#         print(resource_keys)
-
-for resource_type in full_resources.keys():
+for resource_type, resource_keys_list in full_resources.items():
     print(f"Resource Type: {resource_type}")
+    for resource_keys in resource_keys_list:
+        print(resource_keys)
+
+# for resource_type in full_resources.keys():
+#     print(f"Resource Type: {resource_type}")
