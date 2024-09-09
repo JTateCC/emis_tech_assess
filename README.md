@@ -38,4 +38,10 @@ also led to the identificaton of foreign key relationships (e.g. encounter as th
 
 first step to extract json files into pandas dataframe for ease of use. 
 
-debated automatically creating tables from dataframes or use of an ORM
+debated automatically creating tables from dataframes or use of an ORM and building tables manually
+for ease and proof of concept decided to create tables manually
+issue is that any new resource tables would require modifications of tables and new links created each time rather than dynamically pfrom 
+
+tested building database and table, hit issue with psycopg2 and instead used pg8000 which is a pure python library which may impact runtime.
+
+built first table correctly.

@@ -19,7 +19,7 @@ def load_json(file_path):
     except UnicodeDecodeError as e:
         print(f"Error Reading {file_path}: {e}")
         return None
-def extract_json_to_dataframe(data, i):
+def extract_json_to_dataframe(data):
     resource_tables = {}
 
     for entry in data['entry']:
@@ -50,15 +50,14 @@ def flatten_resource(resource):
 
 def extract_all_json_to_dataframe(directory_path:str):
     all_resource_tables = {}
-    i = 0
+    i=0
     for filename in os.listdir(directory_path):
         if filename.endswith('.json'):
             file_path = os.path.join(directory_path, filename)
             json_data = load_json(file_path)
             if json_data:
-                resource_tables = extract_json_to_dataframe(json_data, i)
-                i += 1
-
+                resource_tables = extract_json_to_dataframe(json_data)
+                i+=1
                 for resource_type, df in resource_tables.items():
                     if resource_type in all_resource_tables:
                         all_resource_tables[resource_type] = pd.concat(
@@ -68,12 +67,12 @@ def extract_all_json_to_dataframe(directory_path:str):
                         all_resource_tables[resource_type] = df
         if i > 10:
             break
-
     return all_resource_tables
 
 directory_path = Path.cwd().parent / 'data'
 all_resource_dataframes = extract_all_json_to_dataframe(directory_path)
 
-patient_table = all_resource_dataframes['Patient']
+patient_table = all_resource_dataframes['Encounter']
 patient_table = patient_table.drop('resourceType', axis=1)
 print(patient_table)
+print(patient_table.columns.tolist())
