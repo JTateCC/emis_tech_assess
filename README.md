@@ -45,3 +45,7 @@ issue is that any new resource tables would require modifications of tables and 
 tested building database and table, hit issue with psycopg2 and instead used pg8000 which is a pure python library which may impact runtime.
 
 built first table correctly.
+
+
+would it make sense to store the dataframes temporarily before inserting, could memory issues be a factor?
+

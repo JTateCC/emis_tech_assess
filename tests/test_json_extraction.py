@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 import json
-from scripts.extract_json_to_dataframes import extract_json_to_dataframe, flatten_resource, extract_all_json_to_dataframe
+from scripts.json_extraction import extract_json_to_dataframe, flatten_resource, extract_all_json_to_dataframes
 
 
 mock_json_data_1 = {

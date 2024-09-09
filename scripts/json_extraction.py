@@ -48,7 +48,7 @@ def flatten_resource(resource):
             flattened[key] = value
     return flattened
 
-def extract_all_json_to_dataframe(directory_path:str):
+def extract_all_json_to_dataframes(directory_path:str):
     all_resource_tables = {}
     i=0
     for filename in os.listdir(directory_path):
@@ -69,8 +69,6 @@ def extract_all_json_to_dataframe(directory_path:str):
             break
     return all_resource_tables
 
-directory_path = Path.cwd().parent / 'data'
-all_resource_dataframes = extract_all_json_to_dataframe(directory_path)
 
 patient_table = all_resource_dataframes['Encounter']
 patient_table = patient_table.drop('resourceType', axis=1)
