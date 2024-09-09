@@ -1,6 +1,8 @@
 import pytest
 import pandas as pd
 import json
+import os
+from pathlib import Path
 from scripts.json_extraction import extract_json_to_dataframe, flatten_resource, extract_all_json_to_dataframes
 
 
@@ -124,4 +126,20 @@ def test_concatenate_json_to_dataframe():
     assert patient_df.iloc[0]["id"] == "123"
     assert patient_df.iloc[1]["id"] == "456"
 
+
+def test_file_extraction_to_dataframe():
+    json_file_path = os.path.join(Path.cwd() / 'data' / 'Aaron697_Jerde200_6fa23508-960e-ff22-c3d0-0519a036543b.json')
+    with open(json_file_path, 'r', encoding='utf-8') as file:
+        json_data = json.load(file)
+    resource_tables_1 = extract_json_to_dataframe(json_data)
+    all_resource_tables = {}
+    for resource_type, df in resource_tables_1.items():
+        if resource_type in all_resource_tables:
+            all_resource_tables[resource_type] = pd.concat(
+                [all_resource_tables[resource_type], df], ignore_index=True
+            )
+        else:
+            all_resource_tables[resource_type] = df
+    patient_df = all_resource_tables["Patient"]
+    assert len(patient_df) > 0
 
