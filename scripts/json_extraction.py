@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 import logging
 import pandas as pd
+from tqdm import tqdm
 
 
 
@@ -51,14 +52,13 @@ def flatten_resource(resource):
 
 def extract_all_json_to_dataframes(directory_path:str):
     all_resource_tables = {}
-    i=0
-    for filename in os.listdir(directory_path):
+    print("Extracting JSON to Dataframes")
+    for filename in tqdm(os.listdir(directory_path)):
         if filename.endswith('.json'):
             file_path = os.path.join(directory_path, filename)
             json_data = load_json(file_path)
             if json_data:
                 resource_tables = extract_json_to_dataframe(json_data)
-                i+=1
                 for resource_type, df in resource_tables.items():
                     if resource_type in all_resource_tables:
                         all_resource_tables[resource_type] = pd.concat(
@@ -66,7 +66,6 @@ def extract_all_json_to_dataframes(directory_path:str):
                         )
                     else:
                         all_resource_tables[resource_type] = df
-        if i > 10:
-            break
+
     return all_resource_tables
 

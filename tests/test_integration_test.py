@@ -1,8 +1,6 @@
 import pytest
 import os
 from pathlib import Path
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from scripts.json_extraction import extract_all_json_to_dataframes
 from scripts.database_population import insert_dataframe_to_db
 import db.models as models

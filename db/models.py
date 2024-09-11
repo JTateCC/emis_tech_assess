@@ -21,8 +21,7 @@ class Patient(Base):
     multipleBirthBoolean = Column(String)
     communication = Column(String)
 
-
-    # encounters =relationship('Encounter', back_populates='patient')
+    encounters = relationship('Encounter', back_populates='patient')
 
 class Encounter(Base):
     __tablename__ = 'encounter'
@@ -33,7 +32,6 @@ class Encounter(Base):
     status = Column(String)
     _class = Column('class', String, key='_class')
     type = Column(String)
-    subject = Column(String)
     participant = Column(String)
     period = Column(String)
     location = Column(String)
@@ -41,9 +39,12 @@ class Encounter(Base):
     reasonCode = Column(String)
     hospitalization = Column(String)
 
-    # patient_id = Column(String, ForeignKey('patient.id'))
-    # patient = relationship('Patient', back_populates='encounters')
+    patient_id = Column(String, ForeignKey('patient.id'))
+    patient = relationship('Patient', back_populates='encounters')
 
+    observations = relationship('Observation', back_populates='encounter')
+    diagnosticReports = relationship('DiagnosticReport', back_populates='encounter')
+    conditions = relationship('Condition', back_populates='encounter')
 class Condition(Base):
     __tablename__ = 'condition'  # Set the table name to the class name
 
@@ -54,9 +55,11 @@ class Condition(Base):
     category = Column(String)
     code = Column(String)
     subject = Column(String)
-    encounter = Column(String)
     onsetDateTime = Column(String)
     recordedDate = Column(String)
+
+    encounter_id = Column(String, ForeignKey('encounter.id'))
+    encounter = relationship('Encounter', back_populates='conditions')
 
 class DiagnosticReport(Base):
     __tablename__ = 'diagnosticReport'
@@ -67,11 +70,13 @@ class DiagnosticReport(Base):
     category = Column(String)
     code = Column(String)
     subject = Column(String)
-    encounter = Column(String)
     effectiveDateTime = Column(String)
     issued = Column(String)
     performer = Column(String)
     presentedForm = Column(String)
+
+    encounter_id = Column(String, ForeignKey('encounter.id'))
+    encounter = relationship('Encounter', back_populates='diagnosticReports')
 
 class DocumentReference(Base):
     __tablename__ = 'documentReference'
@@ -142,10 +147,12 @@ class Observation(Base):
     category = Column(String)
     code = Column(String)
     subject = Column(String)
-    encounter = Column(String)
     effectiveDateTime = Column(String)
     issued = Column(String)
     valueQuantity = Column(String)
+
+    encounter_id = Column(String, ForeignKey('encounter.id'))
+    encounter = relationship('Encounter', back_populates='observations')
 
 class Procedure(Base):
     __tablename__ = 'procedure'

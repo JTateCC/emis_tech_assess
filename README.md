@@ -49,3 +49,4 @@ built first table correctly.
 
 would it make sense to store the dataframes temporarily before inserting, could memory issues be a factor?
 
+set up some dataframe clean up to add relationships etc.

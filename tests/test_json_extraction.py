@@ -3,7 +3,7 @@ import pandas as pd
 import json
 import os
 from pathlib import Path
-from scripts.json_extraction import extract_json_to_dataframe, flatten_resource, extract_all_json_to_dataframes
+from scripts.json_extraction import extract_json_to_dataframe, flatten_resource
 
 
 mock_json_data_1 = {
