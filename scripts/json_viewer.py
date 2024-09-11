@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 import os
 
 
@@ -46,7 +47,7 @@ def process_files(directory):
 
     return all_resources
 
-directory_path = 'C:\Programming\Projects\exa-data-eng-assessment\data'
+directory_path = os.path.join(Path.cwd() / 'data')
 full_resources = process_files(directory_path)
 
 

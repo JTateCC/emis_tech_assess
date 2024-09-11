@@ -13,13 +13,9 @@ from tqdm import tqdm
 def main():
     engine = create_engine(get_db_url())
     models.Base.metadata.create_all(engine)
-    all_resource_dataframes = extract_json_to_dataframes()
+    all_resource_dataframes = json_extraction.extract_all_json_to_dataframes(os.path.join(Path.cwd() / 'data'))
     clean_dataframes(all_resource_dataframes)
     populate_database(engine, all_resource_dataframes)
-
-def extract_json_to_dataframes():
-    return json_extraction.extract_all_json_to_dataframes(os.path.join(Path.cwd() / 'data'))
-
 
 def clean_dataframes(dataframes):
     ## example of cleaning dataframes - further work to complete all tables
@@ -47,6 +43,7 @@ def populate_database(engine, dataframes):
             try:
                 AlchemyClass = getattr(models, k)
                 database_population.insert_dataframe_to_db(session, df, AlchemyClass)
+                print(f"Inserted {k} Data")
             except AttributeError as e:
                 print(f"Model class for {k} not found: {e}") # to replace with better logging
         session.commit()
