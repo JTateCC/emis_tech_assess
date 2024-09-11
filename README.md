@@ -4,10 +4,9 @@
 
 This Python application extracts medical data from JSON files (using the FHIR standard) and inserts it into a tabular format using SQLAlchemy ORM for relational database management. The extracted data is stored in a PostgreSQL database for further analysis or processing.
 
-### **Repository**
+### **Original Repository**
 
-[Link to original repository](#) (Insert repository link here)
-
+[Link to original repository](https://github.com/emisgroup/exa-data-eng-assessment)
 ---
 
 ## **Tech Stack**
