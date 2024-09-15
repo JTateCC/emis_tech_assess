@@ -70,6 +70,18 @@ This Python application extracts medical data from JSON files (using the FHIR st
 
 ---
 
+## Example Outputs
+
+``` 
+/dt 
+```
+![tables.png](img%2Ftables.png)
+
+``` 
+SELECT COUNT(*) FROM patient;
+```
+![patient_count.png](img%2Fpatient_count.png)
+
 ## Workflow
 
 The application follows a structured workflow that involves extracting, transforming, and loading (ETL) data from JSON into the database. 
